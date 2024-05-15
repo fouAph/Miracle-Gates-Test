@@ -4,10 +4,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
   [SerializeField] EnemyState enemyState;
-  [SerializeField] float cautionDistance;
-  [SerializeField] float angryDistance;
   [SerializeField] TargetScanner targetScanner;
 
+  [SerializeField] float reachableFriendDistance = 10;
   [SerializeField] LayerMask friendMask;
 
   bool hasReset;
@@ -20,6 +19,7 @@ public class Enemy : MonoBehaviour
   {
     enemyRenderer = GetComponent<Renderer>();
     normalColor = enemyRenderer.material.color;
+    targetScanner.BoxSetup(transform);
   }
   private void Update()
   {
@@ -48,15 +48,15 @@ public class Enemy : MonoBehaviour
   {
     if (enemy == null)
     {
-      if (Vector3.Distance(target.transform.position, transform.position) < angryDistance)
+      if (Vector3.Distance(target.transform.position, transform.position) < targetScanner.angryDistance)
       {
         enemyState = EnemyState.Angry;
       }
-      else if (Vector3.Distance(target.transform.position, transform.position) < cautionDistance)
+      else if (Vector3.Distance(target.transform.position, transform.position) < targetScanner.detectionRadius)
       {
         enemyState = EnemyState.Cautious;
       }
-      else if (Vector3.Distance(target.transform.position, transform.position) > cautionDistance)
+      else if (Vector3.Distance(target.transform.position, transform.position) > targetScanner.detectionRadius)
       {
         enemyState = EnemyState.Angry;
       }
@@ -87,13 +87,12 @@ public class Enemy : MonoBehaviour
 
   private void NotifyNearbyFriend()
   {
-    var nearbyFriend = Physics.OverlapSphere(transform.position, 10, friendMask);
+    var nearbyFriend = Physics.OverlapSphere(transform.position, reachableFriendDistance, friendMask);
     if (nearbyFriend == null) return;
     foreach (var item in nearbyFriend)
     {
       item.GetComponent<Enemy>().HandleEnemyState(this);
 
-      print(item.name);
     }
   }
   private void OnDrawGizmosSelected()

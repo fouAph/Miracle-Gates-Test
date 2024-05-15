@@ -8,13 +8,13 @@ public class SaveDataFormatter : IMessagePackFormatter<SaveData>
     writer.WriteArrayHeader(4);
     writer.Write(value.activeGlasses);
     writer.Write(value.glassesColor.r);
-    writer.Write(value.glassesColor.b);
+    writer.Write(value.glassesColor.g);
     writer.Write(value.glassesColor.b);
     writer.Write(value.glassesColor.a);
 
     writer.Write(value.activeBoots);
     writer.Write(value.bootsColor.r);
-    writer.Write(value.bootsColor.b);
+    writer.Write(value.bootsColor.g);
     writer.Write(value.bootsColor.b);
     writer.Write(value.bootsColor.a);
   }
