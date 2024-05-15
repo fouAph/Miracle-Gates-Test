@@ -95,6 +95,7 @@ public class Enemy : MonoBehaviour
 
     }
   }
+#if UNITY_EDITOR
   private void OnDrawGizmosSelected()
   {
     if (targetScanner != null)
@@ -102,6 +103,7 @@ public class Enemy : MonoBehaviour
       targetScanner.EditorGizmo(transform);
     }
   }
-}
+#endif
 
+}
 public enum EnemyState { Normal, Cautious, Angry }
