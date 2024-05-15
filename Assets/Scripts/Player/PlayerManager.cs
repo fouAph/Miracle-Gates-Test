@@ -2,7 +2,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class PlayerManager : MonoBehaviour
 {
   [SerializeField] SaveData currentSaveData;

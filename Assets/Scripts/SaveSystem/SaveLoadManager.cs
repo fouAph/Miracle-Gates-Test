@@ -22,7 +22,7 @@ public class SaveLoadManager : MonoBehaviour
   {
     byte[] bytes = MessagePackSerializer.Serialize(currentSaveData, options);
     File.WriteAllBytes(saveFilePath, bytes);
-    Debug.Log($"Saving glasses Color{currentSaveData.glassesColor} and bootsColor {currentSaveData.bootsColor}");
+    // Debug.Log($"Saving glasses Color{currentSaveData.glassesColor} and bootsColor {currentSaveData.bootsColor}");
   }
 
   [ContextMenu("Load Data")]
@@ -36,7 +36,7 @@ public class SaveLoadManager : MonoBehaviour
 
     byte[] bytes = File.ReadAllBytes(saveFilePath);
     SaveData data = MessagePackSerializer.Deserialize<SaveData>(bytes, options);
-    Debug.Log($"Loading glasses Color{data.glassesColor} and bootsColor {data.bootsColor}");
+    // Debug.Log($"Loading glasses Color{data.glassesColor} and bootsColor {data.bootsColor}");
 
     return data;
   }
